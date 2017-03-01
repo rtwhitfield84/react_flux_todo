@@ -5,7 +5,7 @@ import * as TodoActions from "../actions/TodoActions";
 import TodoStore from "../stores/TodoStore";
 
 
-export default class Featured extends React.Component {
+export default class Todos extends React.Component {
   constructor() {
     super();
     this.getTodos = this.getTodos.bind(this);
@@ -14,13 +14,10 @@ export default class Featured extends React.Component {
     };
   }
 
-componentWillMount() {
-  TodoStore.on("change", () => {
-    this.setState({
-      todos: TodoStore.getAll()
-    });
-  });
-}
+  componentWillMount() {
+    TodoStore.on("change", this.getTodos);
+  }
+
   componentWillUnmount() {
     TodoStore.removeListener("change", this.getTodos);
   }
