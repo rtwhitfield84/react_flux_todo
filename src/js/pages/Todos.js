@@ -14,10 +14,13 @@ export default class Featured extends React.Component {
     };
   }
 
-  componentWillMount() {
-    TodoStore.on("change", this.getTodos);
-  }
-
+componentWillMount() {
+  TodoStore.on("change", () => {
+    this.setState({
+      todos: TodoStore.getAll()
+    });
+  });
+}
   componentWillUnmount() {
     TodoStore.removeListener("change", this.getTodos);
   }
